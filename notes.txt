@@ -71,3 +71,18 @@ sudo ss -ltnp | grep nginx
 git fetch origin
 git checkout launch
 git pull origin launch
+
+-pm2-
+pm2 start server.js
+pm2 start server.js --name arcadehub
+pm2 start server.js --watch
+pm2 restart arcadehub
+pm2 stop arcadehub
+pm2 delete arcadehub
+pm2 delete all
+
+-sync-
+cd /var/www/cis-1512 
+git pull
+cd /var/www/cis-1440
+git pull
