@@ -1,0 +1,73 @@
+-access existing cloud vm-
+
+//root
+ssh -i ~/.ssh/nodeserver root@162.243.174.19
+safe%keep
+//server
+ssh -i ~/.ssh/nodeserver server@162.243.174.19
+
+
+-create-
+
+cd /var/www
+git clone https://github.com/sloandjw/cis-1440
+
+cd cis-1440
+
+-configure Nginx-
+
+sudo nano /etc/nginx/sites-available/ls
+
+server {
+    listen 80 default_server;
+    listen [::]:80 default_server;
+
+    server_name _;
+
+    root /var/www/html;
+    index index.html;
+
+    location / {
+        try_files $uri $uri/ =404;
+    }
+
+    location /cis-1440/ {
+        alias /var/www/cis-1440/;
+        index index.html;
+        try_files $uri $uri/ $uri/index.html =404;
+    }
+
+    location /cis-1512/ {
+        alias /var/www/cis-1512/;
+        index index.html;
+        try_files $uri $uri/ $uri/index.html =404;
+    }
+
+    location /cis-1512/leaderboard {
+        proxy_pass http://127.0.0.1:3000/leaderboard;
+    }
+
+    location /cis-1512/api {
+        proxy_pass http://127.0.0.1:3000;
+    }
+}
+
+-enable it-
+sudo ln -s /etc/nginx/sites-available/ls /etc/nginx/sites-enabled/
+sudo nginx -t
+sudo systemctl restart nginx
+
+-reload Nginx-
+sudo nginx -t
+sudo systemctl reload nginx
+
+-check running-
+ps -ef | grep nginx
+
+-check for listening-
+sudo ss -ltnp | grep nginx
+
+-update server repo-
+git fetch origin
+git checkout launch
+git pull origin launch
