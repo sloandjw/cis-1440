@@ -86,3 +86,8 @@ cd /var/www/cis-1512
 git pull
 cd /var/www/cis-1440
 git pull
+
+-add cron job-
+crontab -e
+0 6 * * * /usr/bin/node /var/www/cis-1440/js/apod.js >> /home/server/apod-update.log 2>&1
+then run node js/apod.js
