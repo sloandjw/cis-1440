@@ -2,7 +2,7 @@ const fs = require("fs");
 const path = require("path");
 const axios = require("axios");
 
-const API_KEY = "DEMO_KEY"; // replace with your real NASA key later
+const API_KEY = "mbFPSZjYhPaTnhW7wjiqPiBcY5ukughe4iwEQMRA";
 const APOD_URL = `https://api.nasa.gov/planetary/apod?api_key=${API_KEY}`;
 const IMAGE_DIR = path.join(__dirname, "..", "images");
 const IMAGE_PATH = path.join(IMAGE_DIR, "apod.jpg");
