@@ -93,9 +93,10 @@ git pull
 
 -add cron job-
 crontab -e
-0 6 * * * /usr/bin/node /var/www/cis-1440/js/apod.js >> /home/server/apod-update.log 2>&1
+0 6 * * * /usr/bin/node /var/www/cis-1440/scripts/apod.js >> /home/server/apod-update.log 2>&1
 then run
-node /var/www/cis-1440/js/apod.js
+node /var/www/cis-1440/scripts/apod.js
 
 -check crontab-
 crontab -l
+cat /home/server/apod-update.log
