@@ -1,2 +1,5 @@
 # Node dependencies
 node_modules/
+
+# server images
+images/apod.jpg
