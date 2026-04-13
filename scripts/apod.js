@@ -36,7 +36,7 @@ async function updateApod() {
       return;
     }
 
-    const imageUrl = data.hdurl || data.url;
+    const imageUrl = data.url || data.hdurl;
     const tempPath = `${IMAGE_PATH}.tmp`;
 
     await downloadImage(imageUrl, tempPath);
