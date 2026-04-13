@@ -29,14 +29,14 @@ async function updateApod() {
       fs.mkdirSync(IMAGE_DIR, { recursive: true });
     }
 
-    const { data } = await axios.get(APOD_URL, { timeout: 15000 });
+    const { data } = await axios.get(APOD_URL, { timeout: 60000 });
 
     if (data.media_type !== "image") {
       console.log("APOD is not an image today. Keeping existing local image.");
       return;
     }
 
-    const imageUrl = data.url || data.hdurl;
+    const imageUrl = data.hdurl || data.url;
     const tempPath = `${IMAGE_PATH}.tmp`;
 
     await downloadImage(imageUrl, tempPath);
