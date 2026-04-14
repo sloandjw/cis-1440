@@ -5,7 +5,7 @@ ssh -i ~/.ssh/nodeserver root@162.243.174.19
 safe%keep
 //server
 ssh -i ~/.ssh/nodeserver server@162.243.174.19
-
+safe%keep
 
 -create-
 
@@ -43,6 +43,10 @@ server {
 
     location /cis-1512/leaderboard {
         proxy_pass http://127.0.0.1:3000/leaderboard;
+    }
+
+    location /cis-1512/debug {
+        proxy_pass http://127.0.0.1:3000/debug;
     }
 
     location /cis-1512/ {
@@ -89,5 +93,10 @@ git pull
 
 -add cron job-
 crontab -e
-0 6 * * * /usr/bin/node /var/www/cis-1440/js/apod.js >> /home/server/apod-update.log 2>&1
-then run node js/apod.js
+0 6 * * * /usr/bin/node /var/www/cis-1440/scripts/apod.js >> /home/server/apod-update.log 2>&1
+then run
+node /var/www/cis-1440/scripts/apod.js
+
+-check crontab-
+crontab -l
+cat /home/server/apod-update.log

@@ -9,13 +9,30 @@
 </head>
 <body class="readable-text">
 
-    <div class="container" >
-        <h1>Hello World</h1>
-        <h2>My name is David.</h2>
-        <h3>This is my website.</h3>
-        
-    </div>
+    <div class="row">
 
+        <div class="left-panel">
+        </div>
+        <div class="container" >
+
+            <h1>Hello World!</h1>
+            <h2>My name is David.</h2>
+            <div class="box" id="new-visitor-section" style="display: none;">
+                <p>What's your name?</p>
+                <input type="text" id="visitor-name-input" class="input" maxlength="20" autocomplete="off">
+                <button id="save-visitor-name" class="button-small">Continue</button>
+            </div>
+            <div class="box" id="returning-visitor-section" style="display: block;">
+                <p id="returning-visitor-message"></p>
+            </div>
+        </div>
+        <div class="right-panel" >
+            <!-- <h1>Hello World</h1>
+            <h2>My name is David.</h2>
+            <h3>This is my website.</h3> -->
+        </div>
+    </div>
+        
     <div class="container">
         <p>I made this website to showcase my software development skills.</p>
         <p>I created a folder structure on my local PC.</p>
@@ -24,20 +41,17 @@
         <p>I created an Ubuntu virtual machine on Digital Ocean.</p>
         <p>I cloned the repository to the virtual machine.</p>
         <p>I installed and configured an Nginx web server.</p>
-        <p>I wrote a script to fetch the daily astronomy picture from NASA's API.</p>
+        <p>I included a script to fetch the daily astronomy picture from NASA's API.</p>
         <p>Now I can develop the site locally using VS Code with Live Server.</p>
         <p>And pull the repository to the virtual machine to go live.</p>
-    </div>
-
-    <div class="container">
         <p>Here are some of my other projects.</p>
-    </div>
-
-    <div class="container">
         <a href="projects.html"><button class="button">My Projects</button></a>
+        <div class="box">
+        <button id="reset-visitor" class="button-small">[Reset Visitor]</button>
     </div>
 
 
     <script src="js/main.js"></script>
+    <script src="js/visitor.js"></script>
 </body>
 </html>

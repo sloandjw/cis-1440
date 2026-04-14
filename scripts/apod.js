@@ -29,7 +29,7 @@ async function updateApod() {
       fs.mkdirSync(IMAGE_DIR, { recursive: true });
     }
 
-    const { data } = await axios.get(APOD_URL, { timeout: 15000 });
+    const { data } = await axios.get(APOD_URL, { timeout: 60000 });
 
     if (data.media_type !== "image") {
       console.log("APOD is not an image today. Keeping existing local image.");

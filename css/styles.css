@@ -4,11 +4,11 @@ body {
     margin: 0;
     min-height: 100vh;
     background: black;
-    background-image: url("../images/apod.jpg");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
     font-family: 'Courier New', Courier, monospace;
+    text-align: center;
 }
 
 h1 {
@@ -35,10 +35,45 @@ p {
 
 .container {
     /*background: black;*/
-    /*border: 1px solid white;*/
+    /* border: 1px solid white; */
     padding: 20px;
     display: flex;
     flex-direction: column;
+    align-items: center;
+}
+
+.left-panel {
+    /* border: 1px solid rgb(255, 0, 0); */
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.right-panel {
+    /* border: 1px solid rgb(0, 0, 255); */
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.box {
+    /* border: 1px solid rgb(255, 125, 0); */
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.row {
+    flex: 1;
+    /* border: 1px solid rgb(0, 255, 0); */
+    padding: 20px;
+    display: flex;
+    justify-content: space-evenly;
     align-items: center;
 }
 
@@ -55,6 +90,30 @@ p {
 
 .button:hover {
     background: rgb(144, 196, 255);
+}
+
+.button-small {
+    background: black;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    font-family: inherit;
+    gap: 20px;
+}
+
+.button-small:hover {
+    background: rgb(144, 196, 255);
+}
+
+.input {
+    background: black;
+    color: white;
+    padding: 10px 20px;
+    border: 1px solid white;
+    font-size: 20px;
+    font-family: inherit;
 }
 
 .readable-text {
