@@ -44,7 +44,7 @@ async function updateApod() {
 
     console.log(`APOD updated successfully: ${IMAGE_PATH} ${new Date()}`);
   } catch (error) {
-    console.error("Failed to update APOD:" + new Date(), error.message);
+    console.error("Failed to update APOD:", error.message + new Date());
     process.exitCode = 1;
   }
 }
