@@ -6,7 +6,7 @@ async function initializeVisitor() {
   const newVisitorSection = document.getElementById("new-visitor-section");
   const returningVisitorSection = document.getElementById("returning-visitor-section");
   const returningVisitorMessage = document.getElementById("returning-visitor-message");
-  const saveButton = document.getElementById("save-visitor-name");
+  const form = document.getElementById("name-form");
   const input = document.getElementById("visitor-name-input");
 
   console.log("visitorName:", visitorName);
@@ -16,24 +16,22 @@ async function initializeVisitor() {
       newVisitorSection.style.display = "block";
     }
 
-    if (saveButton && input) {
-      saveButton.onclick = async () => {
+    if (form && input) {
+      form.addEventListener("submit", async (e) => {
+        e.preventDefault();
         const enteredName = input.value.trim();
         if (!enteredName) return;
-
         localStorage.setItem("visitorName", enteredName);
-
         if (newVisitorSection) {
           newVisitorSection.style.display = "none";
         }
-
         if (returningVisitorSection && returningVisitorMessage) {
           returningVisitorMessage.textContent = `Welcome, ${enteredName}!`;
           returningVisitorSection.style.display = "block";
         }
-      };
+      });
     }
-    return;
+    return; 
   } 
     if (returningVisitorSection && returningVisitorMessage) {
         returningVisitorMessage.textContent = `Welcome back, ${visitorName}!`;
