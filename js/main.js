@@ -1,5 +1,3 @@
-const today = new Date().toISOString().slice(0, 10);
-
 const isLocal =
   location.hostname === "127.0.0.1" ||
   location.hostname === "localhost";
@@ -7,7 +5,103 @@ const isLocal =
 const basePath = isLocal ? "" : "/cis-1440";
 
 document.body.style.backgroundColor = "black";
-document.body.style.backgroundImage =
-  `url("${basePath}/images/apod.jpg?v=${today}")`;
+document.body.style.backgroundImage = `url("${basePath}/images/apod.jpg")`;
 document.body.style.backgroundSize = "cover";
 document.body.style.backgroundPosition = "center";
+
+
+
+if (localStorage.getItem("visitorName") === null) {
+  document.getElementById('nameForm').style.display = "block"; // Show the form if no visitor name is stored
+  console.log("visitorName: ", localStorage.getItem("visitorName"));
+  document.getElementById('nameForm').addEventListener('submit', (event) => {
+    event.preventDefault(); // Prevent the form from submitting the traditional way
+    const nameInput = document.getElementById('nameInput'); // Get the name input element
+    // rest of the code …
+    localStorage.setItem("visitorName", nameInput.value); // Store the visitor's name in localStorage
+    nameInput.value = ""; // Clear the input field after storing the name
+
+    document.getElementById('nameForm').style.display = "none"; // Hide the form after submission
+    generateVisitorMessage(); // Generate the visitor message after storing the name
+    document.getElementById("visitor-message").style.display = "block"; // Show the welcome message
+  })
+} else {
+  generateVisitorMessage(); // Generate the visitor message if a visitor name is stored
+  document.getElementById("visitor-message").style.display = "block"; // Show the welcome message
+}
+
+setInterval(generateVisitorMessage, 1000); // Update the visitor message every second to keep the time current
+
+async function generateVisitorMessage() {
+  const visitorName = getVisitorName();
+  const { time, date } = getCurrentDateTime();
+  const greeting = getGreeting(new Date().getHours());
+  const weatherDescription = await fetchWeather(); // Fetch the current weather description
+  document.getElementById("visitor-message").textContent = `${greeting}, ${visitorName}! It's ${time} on ${date}, and it's ${weatherDescription} right now.`;
+}
+
+
+// Function to get and format the current date and time
+function getCurrentDateTime() {
+    const now = new Date(); // Create a new Date object with the current date and time
+
+    // Format the time according to locale-specific settings
+    // { timeZone: 'America/New_York', hour12: true } is an options object passed to toLocaleTimeString()
+    // Options object: 
+    //   - timeZone: 'America/New_York' specifies the time zone to be used for formatting (Eastern Time Zone)
+    //   - hour12: true ensures the time is formatted in 12-hour clock with AM/PM
+    const time = now.toLocaleTimeString('en-US', { timeZone: 'America/New_York', hour12: true });
+    // Format the date according to locale-specific settings
+    // { timeZone: 'America/New_York' } specifies the time zone for formatting (Eastern Time Zone)
+    // The default format used is based on the locale 'en-US', which will be MM/DD/YYYY
+    const date = now.toLocaleDateString('en-US', { timeZone: 'America/New_York' });
+    return { time, date }; // Return the formatted time and date as an object
+}
+
+
+function getGreeting(hour) {
+  if (hour >= 5 && hour < 12) {
+    return "Good morning";
+  } else if (hour >= 12 && hour < 18) {
+    return "Good afternoon";
+  } else {
+    return "Good evening";
+  }
+}
+
+async function fetchWeather() {
+  try {
+    // Fetch the weather data from the Open-Meteo API
+    // Latitude and longitude are used to get weather information for a specific location
+    // The Open-Meteo API provides various weather data endpoints, and one of the available options is to request the current weather conditions.
+    // By adding current_weather=true to the API request URL, you're telling the API to include the current weather information in the response.
+    const response = await fetch('https://api.open-meteo.com/v1/forecast?latitude=42.3314&longitude=-83.0458&current_weather=true');
+    const data = await response.json(); // Parse the response as JSON
+    const weatherDescription = mapWeatherCodeToDescription(data.current_weather.weathercode);
+    return weatherDescription;
+	} catch (error) {
+    console.error('Error fetching weather data:', error);
+    return 'unknown'; // Return 'unknown' if there's an error fetching the weather data
+  }
+}
+
+function mapWeatherCodeToDescription(code) {
+  // Object to map weather codes to descriptive strings
+  const weatherDescriptions = {
+    0: 'clear sky',
+    1: 'mainly clear',
+    2: 'partly cloudy',
+    3: 'overcast',
+    45: 'fog',
+    // the rest of the codes …
+  };
+  return weatherDescriptions[code] || 'unknown';
+}
+
+function getVisitorName() {
+  return localStorage.getItem("visitorName");
+}
+
+
+console.log(getCurrentDateTime());
+console.log ("Visitor name from localStorage:", localStorage.getItem("visitorName"));

@@ -7,6 +7,10 @@ safe%keep
 ssh -i ~/.ssh/nodeserver server@162.243.174.19
 safe%keep
 
+-sync-
+cd /var/www/cis-1440
+git pull
+
 -create-
 
 cd /var/www
@@ -71,30 +75,10 @@ ps -ef | grep nginx
 -check for listening-
 sudo ss -ltnp | grep nginx
 
--update server repo-
-git fetch origin
-git checkout launch
-git pull origin launch
-
--pm2-
-pm2 start server.js
-pm2 start server.js --name arcadehub
-pm2 start server.js --watch
-pm2 restart arcadehub
-pm2 stop arcadehub
-pm2 delete arcadehub
-pm2 delete all
-
--sync-
-cd /var/www/cis-1512 
-git pull
-cd /var/www/cis-1440
-git pull
-
 -add cron job-
 crontab -e
-0 6 * * * /usr/bin/node /var/www/cis-1440/scripts/apod.js >> /home/server/apod-update.log 2>&1
-then run
+0,15,30,45 6 * * * /usr/bin/node /var/www/cis-1440/scripts/apod.js >> /home/server/apod-update.log 2>&1
+then run node server
 node /var/www/cis-1440/scripts/apod.js
 
 -check crontab-

@@ -42,9 +42,9 @@ async function updateApod() {
     await downloadImage(imageUrl, tempPath);
     fs.renameSync(tempPath, IMAGE_PATH);
 
-    console.log(`APOD updated successfully: ${IMAGE_PATH} ${new Date().toLocaleString()}`);
+    console.log(`${new Date().toISOString()} (UTC): APOD updated successfully: ${IMAGE_PATH} `);
   } catch (error) {
-    console.error("Failed to update APOD:" + new Date().toLocaleString(), error.message);
+    console.error(`${new Date().toISOString()} (UTC): Failed to update APOD:`, error.message);
     process.exitCode = 1;
   }
 }
