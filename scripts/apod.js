@@ -12,7 +12,7 @@ async function downloadImage(url, outputPath) {
     method: "get",
     url,
     responseType: "stream",
-    timeout: 30000,
+    timeout: 300000,
   });
 
   await new Promise((resolve, reject) => {
@@ -29,7 +29,7 @@ async function updateApod() {
       fs.mkdirSync(IMAGE_DIR, { recursive: true });
     }
 
-    const { data } = await axios.get(APOD_URL, { timeout: 60000 });
+    const { data } = await axios.get(APOD_URL, { timeout: 300000 });
 
     if (data.media_type !== "image") {
       console.log("APOD is not an image today. Keeping existing local image.");
@@ -42,9 +42,9 @@ async function updateApod() {
     await downloadImage(imageUrl, tempPath);
     fs.renameSync(tempPath, IMAGE_PATH);
 
-    console.log(`APOD updated successfully: ${IMAGE_PATH}`);
+    console.log(`APOD updated successfully: ${IMAGE_PATH} ${new Date().toLocaleString()}`);
   } catch (error) {
-    console.error("Failed to update APOD:", error.message);
+    console.error("Failed to update APOD:" + new Date().toLocaleString(), error.message);
     process.exitCode = 1;
   }
 }
