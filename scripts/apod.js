@@ -42,9 +42,9 @@ async function updateApod() {
     await downloadImage(imageUrl, tempPath);
     fs.renameSync(tempPath, IMAGE_PATH);
 
-    console.log(`APOD updated successfully: ${IMAGE_PATH} ${new Date()}`);
+    console.log(`${new Date()}: APOD updated successfully: ${IMAGE_PATH} `);
   } catch (error) {
-    console.error("Failed to update APOD:", error.message + new Date());
+    console.error(`${new Date()}: Failed to update APOD:`, error.message);
     process.exitCode = 1;
   }
 }
