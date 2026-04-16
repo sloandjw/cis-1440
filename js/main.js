@@ -75,7 +75,7 @@ async function fetchWeather() {
     // Latitude and longitude are used to get weather information for a specific location
     // The Open-Meteo API provides various weather data endpoints, and one of the available options is to request the current weather conditions.
     // By adding current_weather=true to the API request URL, you're telling the API to include the current weather information in the response.
-    const response = await fetch('https://api.open-meteo.com/v1/forecast?latitude=42.3314&longitude=-83.0458&current_weather=true');
+    const response = await fetch('https://api.open-meteo.com/v1/forecast?latitude=42.3658&longitude=-83.1808&current_weather=true');
     const data = await response.json(); // Parse the response as JSON
     const weatherDescription = mapWeatherCodeToDescription(data.current_weather.weathercode);
     return weatherDescription;
