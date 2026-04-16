@@ -39,7 +39,7 @@ async function generateVisitorMessage() {
   const { time, date } = getCurrentDateTime();
   const greeting = getGreeting(new Date().getHours());
   const weatherDescription = await fetchWeather(); // Fetch the current weather description
-  visitorMessage.textContent = `${greeting}, ${visitorName}! It's ${time} on ${date}, and it's ${weatherDescription} right now.`;
+  visitorMessage.textContent = `${greeting}, ${visitorName}! It's ${time} on ${date}, and it's ${weatherDescription} right now in Pontiac, Michigan.`;
 }
 
 // Function to get and format the current date and time
