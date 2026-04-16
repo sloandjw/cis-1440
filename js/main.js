@@ -1,45 +1,46 @@
-const isLocal =
-  location.hostname === "127.0.0.1" ||
-  location.hostname === "localhost";
-
+const isLocal = location.hostname === "127.0.0.1" || location.hostname === "localhost";
 const basePath = isLocal ? "" : "/cis-1440";
+const nameForm = document.getElementById("nameForm");
+const nameInput = document.getElementById("nameInput");
+const visitorMessage = document.getElementById("visitor-message");
 
 document.body.style.backgroundColor = "black";
 document.body.style.backgroundImage = `url("${basePath}/images/apod.jpg")`;
 document.body.style.backgroundSize = "cover";
 document.body.style.backgroundPosition = "center";
 
+if (nameForm && nameInput && visitorMessage) {
+  if (localStorage.getItem("visitorName") === null) {
+    nameForm.style.display = "block"; // Show the form if no visitor name is stored
+    console.log("visitorName: ", localStorage.getItem("visitorName"));
+    nameForm.addEventListener('submit', (event) => {
+      event.preventDefault(); // Prevent the form from submitting the traditional way
+      const nameInput = document.getElementById('nameInput'); // Get the name input element
+      // rest of the code …
+      localStorage.setItem("visitorName", nameInput.value); // Store the visitor's name in localStorage
+      nameInput.value = ""; // Clear the input field after storing the name
 
-
-if (localStorage.getItem("visitorName") === null) {
-  document.getElementById('nameForm').style.display = "block"; // Show the form if no visitor name is stored
-  console.log("visitorName: ", localStorage.getItem("visitorName"));
-  document.getElementById('nameForm').addEventListener('submit', (event) => {
-    event.preventDefault(); // Prevent the form from submitting the traditional way
-    const nameInput = document.getElementById('nameInput'); // Get the name input element
-    // rest of the code …
-    localStorage.setItem("visitorName", nameInput.value); // Store the visitor's name in localStorage
-    nameInput.value = ""; // Clear the input field after storing the name
-
-    document.getElementById('nameForm').style.display = "none"; // Hide the form after submission
-    generateVisitorMessage(); // Generate the visitor message after storing the name
-    document.getElementById("visitor-message").style.display = "block"; // Show the welcome message
-  })
-} else {
-  generateVisitorMessage(); // Generate the visitor message if a visitor name is stored
-  document.getElementById("visitor-message").style.display = "block"; // Show the welcome message
+      nameForm.style.display = "none"; // Hide the form after submission
+      generateVisitorMessage(); // Generate the visitor message after storing the name
+      visitorMessage.style.display = "block"; // Show the welcome message
+    })
+  } else {
+    generateVisitorMessage(); // Generate the visitor message if a visitor name is stored
+    visitorMessage.style.display = "block"; // Show the welcome message
+  }
 }
 
-setInterval(generateVisitorMessage, 1000); // Update the visitor message every second to keep the time current
+if (visitorMessage) {
+  setInterval(generateVisitorMessage, 1000); // Update the visitor message every second to keep the time current
+}
 
 async function generateVisitorMessage() {
   const visitorName = getVisitorName();
   const { time, date } = getCurrentDateTime();
   const greeting = getGreeting(new Date().getHours());
   const weatherDescription = await fetchWeather(); // Fetch the current weather description
-  document.getElementById("visitor-message").textContent = `${greeting}, ${visitorName}! It's ${time} on ${date}, and it's ${weatherDescription} right now.`;
+  visitorMessage.textContent = `${greeting}, ${visitorName}! It's ${time} on ${date}, and it's ${weatherDescription} right now.`;
 }
-
 
 // Function to get and format the current date and time
 function getCurrentDateTime() {
@@ -57,7 +58,6 @@ function getCurrentDateTime() {
     const date = now.toLocaleDateString('en-US', { timeZone: 'America/New_York' });
     return { time, date }; // Return the formatted time and date as an object
 }
-
 
 function getGreeting(hour) {
   if (hour >= 5 && hour < 12) {
@@ -101,7 +101,6 @@ function mapWeatherCodeToDescription(code) {
 function getVisitorName() {
   return localStorage.getItem("visitorName");
 }
-
 
 console.log(getCurrentDateTime());
 console.log ("Visitor name from localStorage:", localStorage.getItem("visitorName"));
