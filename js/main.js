@@ -102,5 +102,14 @@ function getVisitorName() {
   return localStorage.getItem("visitorName");
 }
 
+document.getElementById('resetForm').addEventListener('submit', (event) => {
+event.preventDefault(); // Prevent the form from submitting the traditional way
+visitorMessage.style.display = "none"; // Hide the welcome message after resetting the name
+localStorage.removeItem("visitorName"); // Remove the visitor's name from localStorage
+document.getElementById('nameInput').value = ""; // Clear the input field after removing the name
+nameForm.style.display = "block"; // Show the form again after resetting the name
+});
+
+
 console.log(getCurrentDateTime());
 console.log ("Visitor name from localStorage:", localStorage.getItem("visitorName"));
