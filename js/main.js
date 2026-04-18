@@ -3,6 +3,7 @@ const basePath = isLocal ? "" : "/cis-1440";
 const nameForm = document.getElementById("nameForm");
 const nameInput = document.getElementById("nameInput");
 const visitorMessage = document.getElementById("visitor-message");
+const lastVisitMessage = document.getElementById("last-visit-message");
 
 document.body.style.backgroundColor = "black";
 document.body.style.backgroundImage = `url("${basePath}/images/apod.jpg")`;
@@ -19,14 +20,17 @@ if (nameForm && nameInput && visitorMessage) {
       // rest of the code …
       localStorage.setItem("visitorName", nameInput.value); // Store the visitor's name in localStorage
       nameInput.value = ""; // Clear the input field after storing the name
-
       nameForm.style.display = "none"; // Hide the form after submission
       generateVisitorMessage(); // Generate the visitor message after storing the name
       visitorMessage.style.display = "block"; // Show the welcome message
+      localStorage.setItem("lastVisit", JSON.stringify(getCurrentDateTime())); // Store the current visit time in localStorage
     })
   } else {
     generateVisitorMessage(); // Generate the visitor message if a visitor name is stored
     visitorMessage.style.display = "block"; // Show the welcome message
+    generateLastVisitMessage(); // Generate the last visit message
+    lastVisitMessage.style.display = "block"; // Show the last visit message
+    localStorage.setItem("lastVisit", JSON.stringify(getCurrentDateTime())); // Update the last visit time in localStorage
   }
 }
 
@@ -42,7 +46,13 @@ async function generateVisitorMessage() {
   visitorMessage.textContent = `${greeting}, ${visitorName}! It's ${time} on ${date}, and it's ${weatherDescription} right now in Pontiac, Michigan.`;
 }
 
-
+function generateLastVisitMessage() {
+  const lastVisit = localStorage.getItem("lastVisit");
+  if (lastVisit) {
+    const { time, date } = JSON.parse(lastVisit); // Parse the last visit time from localStorage
+    lastVisitMessage.textContent = `You last visited on ${date} at ${time}.`;
+  }
+}
 
 // Function to get and format the current date and time
 function getCurrentDateTime() {
