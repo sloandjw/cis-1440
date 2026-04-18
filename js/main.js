@@ -3,6 +3,7 @@ const basePath = isLocal ? "" : "/cis-1440";
 const nameForm = document.getElementById("nameForm");
 const nameInput = document.getElementById("nameInput");
 const visitorMessage = document.getElementById("visitor-message");
+const lastVisitMessage = document.getElementById("last-visit-message");
 
 document.body.style.backgroundColor = "black";
 document.body.style.backgroundImage = `url("${basePath}/images/apod.jpg")`;
@@ -19,14 +20,17 @@ if (nameForm && nameInput && visitorMessage) {
       // rest of the code …
       localStorage.setItem("visitorName", nameInput.value); // Store the visitor's name in localStorage
       nameInput.value = ""; // Clear the input field after storing the name
-
       nameForm.style.display = "none"; // Hide the form after submission
       generateVisitorMessage(); // Generate the visitor message after storing the name
       visitorMessage.style.display = "block"; // Show the welcome message
+      localStorage.setItem("lastVisit", JSON.stringify(getCurrentDateTime())); // Store the current visit time in localStorage
     })
   } else {
     generateVisitorMessage(); // Generate the visitor message if a visitor name is stored
     visitorMessage.style.display = "block"; // Show the welcome message
+    generateLastVisitMessage(); // Generate the last visit message
+    lastVisitMessage.style.display = "block"; // Show the last visit message
+    localStorage.setItem("lastVisit", JSON.stringify(getCurrentDateTime())); // Update the last visit time in localStorage
   }
 }
 
@@ -40,6 +44,14 @@ async function generateVisitorMessage() {
   const greeting = getGreeting(new Date().getHours());
   const weatherDescription = await fetchWeather(); // Fetch the current weather description
   visitorMessage.textContent = `${greeting}, ${visitorName}! It's ${time} on ${date}, and it's ${weatherDescription} right now in Pontiac, Michigan.`;
+}
+
+function generateLastVisitMessage() {
+  const lastVisit = localStorage.getItem("lastVisit");
+  if (lastVisit) {
+    const { time, date } = JSON.parse(lastVisit); // Parse the last visit time from localStorage
+    lastVisitMessage.textContent = `You last visited on ${date} at ${time}.`;
+  }
 }
 
 // Function to get and format the current date and time
@@ -88,12 +100,34 @@ async function fetchWeather() {
 function mapWeatherCodeToDescription(code) {
   // Object to map weather codes to descriptive strings
   const weatherDescriptions = {
-    0: 'clear sky',
-    1: 'mainly clear',
-    2: 'partly cloudy',
-    3: 'overcast',
-    45: 'fog',
-    // the rest of the codes …
+    0: '☀️ clear skies',
+    1: '🌤️ mostly clear',
+    2: '⛅ partly cloudy',
+    3: '☁️ overcast',
+    45: '🌫️ foggy',
+    48: '🌫️ foggy with frost',
+    51: '🌦️ lightly drizzling',
+    53: '🌦️ drizzling',
+    55: '🌧️ heavily drizzling',
+    56: '🌧️ light freezing drizzle',
+    57: '🌧️ freezing drizzle',
+    61: '🌧️ light rain',
+    63: '🌧️ raining',
+    65: '🌧️ heavy rain',
+    66: '🌧️ light freezing rain',
+    67: '🌧️ freezing rain',
+    71: '🌨️ light snow',
+    73: '❄️ snowing',
+    75: '❄️ heavy snow',
+    77: '❄️ snowy',
+    80: '🌦️ light rain showers',
+    81: '🌦️ rain showers',
+    82: '🌧️ heavy rain showers',
+    85: '🌨️ light snow showers',
+    86: '🌨️ snow showers',
+    95: '⛈️ stormy',
+    96: '⛈️ stormy with light hail',
+    99: '⛈️ stormy with hail'
   };
   return weatherDescriptions[code] || 'unknown';
 }

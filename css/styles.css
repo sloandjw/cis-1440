@@ -8,7 +8,7 @@ body {
     background-position: center;
     background-repeat: no-repeat;
     font-family: 'Courier New', Courier, monospace;
-    /* text-align: center; */
+    text-align: center;
 }
 
 h1 {
@@ -31,6 +31,30 @@ p {
     font-size: 40px;
 }
 
+img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+table {
+    border: 2px solid white;
+    background: black;
+    border-collapse: separate;
+    border-spacing: 20px 0px;
+    padding: 20px;
+}
+
+td, th {
+    padding: 4px 15px;
+    text-align: left;
+}
+
+thead th {
+    padding: 10px;
+    font-size: 20px;
+}
+
 /* classes */
 
 .container {
@@ -42,22 +66,12 @@ p {
     align-items: center;
 }
 
-.left-panel {
-    /* border: 1px solid rgb(255, 0, 0); */
+.image-container {
+    max-width: 600px;
     padding: 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: space-between;
-}
-
-.right-panel {
-    /* border: 1px solid rgb(0, 0, 255); */
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
 }
 
 .box {
@@ -81,7 +95,7 @@ p {
     background: black;
     color: white;
     padding: 20px 40px;
-    border: none;
+    border: 2px solid white;
     cursor: pointer;
     font-size: 40px;
     font-family: inherit;
