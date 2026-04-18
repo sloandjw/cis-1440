@@ -26,7 +26,6 @@ if (nameForm && nameInput && visitorMessage) {
     })
   } else {
     generateVisitorMessage(); // Generate the visitor message if a visitor name is stored
-    ge
     visitorMessage.style.display = "block"; // Show the welcome message
   }
 }
