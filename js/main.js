@@ -90,12 +90,34 @@ async function fetchWeather() {
 function mapWeatherCodeToDescription(code) {
   // Object to map weather codes to descriptive strings
   const weatherDescriptions = {
-    0: 'clear sky',
-    1: 'mainly clear',
-    2: 'partly cloudy',
-    3: 'overcast',
-    45: 'fog',
-    // the rest of the codes …
+    0: '☀️ clear skies',
+    1: '🌤️ mostly clear',
+    2: '⛅ partly cloudy',
+    3: '☁️ overcast',
+    45: '🌫️ foggy',
+    48: '🌫️ foggy with frost',
+    51: '🌦️ lightly drizzling',
+    53: '🌦️ drizzling',
+    55: '🌧️ heavily drizzling',
+    56: '🌧️ light freezing drizzle',
+    57: '🌧️ freezing drizzle',
+    61: '🌧️ light rain',
+    63: '🌧️ raining',
+    65: '🌧️ heavy rain',
+    66: '🌧️ light freezing rain',
+    67: '🌧️ freezing rain',
+    71: '🌨️ light snow',
+    73: '❄️ snowing',
+    75: '❄️ heavy snow',
+    77: '❄️ snowy',
+    80: '🌦️ light rain showers',
+    81: '🌦️ rain showers',
+    82: '🌧️ heavy rain showers',
+    85: '🌨️ light snow showers',
+    86: '🌨️ snow showers',
+    95: '⛈️ stormy',
+    96: '⛈️ stormy with light hail',
+    99: '⛈️ stormy with hail'
   };
   return weatherDescriptions[code] || 'unknown';
 }

@@ -10,10 +10,6 @@
 <body class="readable-text">
 
     <div class="row">
-
-        <div class="left-panel">
-        </div>
-
         <div class="container" >
             <h1>Hello World!</h1>
             <h2>My name is David.</h2>
@@ -25,22 +21,60 @@
             <p id="visitor-message" style="display: none;"></p>
             <p id="last-visit-message" style="display: none;"></p>
         </div>
-
-        <div class="right-panel" >
-        </div>
-
     </div>
         
     <div class="container">
-        <p>To make this website I created a local file and directory structure on my PC.</p>
+        <p>To make this website I created a local file structure on my PC.</p>
         <p>I initialized a repository on GitHub at:</p>
         <a href="https://github.com/sloandjw/cis-1440"><button class="button">GitHub Repository CIS-1440</button></a>
-        <p>I created an Ubuntu virtual machine on Digital Ocean.</p>
+        <p>I created a virtual machine on Digital Ocean.</p>
         <p>I cloned the repository to the virtual machine.</p>
         <p>I installed and configured an Nginx web server.</p>
-        <p>I included a script to fetch the daily astronomy picture from NASA's API for the background.</p>
-        <p>Now I can develop the site locally and pull the repository to the virtual machine to go live.</p>
-        <p>This is the topology:</p>
+        <p>I use a script and daily cronjob to fetch NASA's Astronomoy Picture of the Day for the background.</p>
+        <p>I can develop the site locally and pull the repository to the virtual machine to go live.</p>
+        <p>Technology stack</p>
+        <table>
+            <thead>
+                <tr>
+                    <th>Component</th>
+                    <th>Technology</th>
+                    <th>Role</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Frontend</td>
+                    <td>HTML/CSS/JavaScript</td>
+                    <td>User interface</td>
+                </tr>
+                <tr>
+                    <td>Version Control</td>
+                    <td>git</td>
+                    <td>Code management</td>
+                </tr>
+                <tr>
+                    <td>Server</td>
+                    <td>Ubuntu Cloud VM</td>
+                    <td>Hosting environment</td>
+                </tr>
+                <tr>
+                    <td>Web Server</td>
+                    <td>Nginx</td>
+                    <td>Serve web pages</td>
+                </tr>
+                <tr>
+                    <td>External API</td>
+                    <td>NASA APOD</td>
+                    <td>Background image</td>
+                </tr>
+                <tr>
+                    <td>External API</td>
+                    <td>Open-Meteo</td>
+                    <td>Weather forecast</td>
+                </tr>
+            </tbody>
+        </table>
+        <p>Topology</p>
         <div class="image-container">
             <img src="images/topology.png" alt="Personal Site Topology" >
         </div>  
