@@ -26,6 +26,7 @@ if (nameForm && nameInput && visitorMessage) {
     })
   } else {
     generateVisitorMessage(); // Generate the visitor message if a visitor name is stored
+    ge
     visitorMessage.style.display = "block"; // Show the welcome message
   }
 }
@@ -41,6 +42,8 @@ async function generateVisitorMessage() {
   const weatherDescription = await fetchWeather(); // Fetch the current weather description
   visitorMessage.textContent = `${greeting}, ${visitorName}! It's ${time} on ${date}, and it's ${weatherDescription} right now in Pontiac, Michigan.`;
 }
+
+
 
 // Function to get and format the current date and time
 function getCurrentDateTime() {

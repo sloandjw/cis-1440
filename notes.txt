@@ -41,24 +41,24 @@ server {
         try_files $uri $uri/ $uri/index.html =404;
     }
 
-    location /cis-1512/api/ {
-        proxy_pass http://127.0.0.1:3000/api/;
-    }
-
-    location /cis-1512/leaderboard {
-        proxy_pass http://127.0.0.1:3000/leaderboard;
-    }
-
-    location /cis-1512/debug {
-        proxy_pass http://127.0.0.1:3000/debug;
-    }
-
     location /cis-1512/ {
         alias /var/www/cis-1512/;
         index index.html;
         try_files $uri $uri/ $uri/index.html =404;
     }
+
+    location /cis-1512/api/ {
+        proxy_pass http://127.0.0.1:3000/api/;
+    }
+
+    location /cis-1512/debug/ {
+        proxy_pass http://127.0.0.1:3000/debug/;
+    }
 }
+
+    location /cis-1512/leaderboard {
+        proxy_pass http://127.0.0.1:3000/leaderboard;
+    }
 
 -enable it-
 sudo ln -s /etc/nginx/sites-available/ls /etc/nginx/sites-enabled/
