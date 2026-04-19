@@ -137,13 +137,13 @@ function getVisitorName() {
 }
 
 document.getElementById('resetForm').addEventListener('submit', (event) => {
-event.preventDefault(); // Prevent the form from submitting the traditional way
-visitorMessage.style.display = "none"; // Hide the welcome message after resetting the name
-lastVisitMessage.style.display = "none"; // Hide the last visit message after resetting the name
-localStorage.removeItem("visitorName"); // Remove the visitor's name from localStorage
-localStorage.removeItem("lastVisit"); // Remove the last visit time from localStorage
-document.getElementById('nameInput').value = ""; // Clear the input field after removing the name
-nameForm.style.display = "block"; // Show the form again after resetting the name
+  event.preventDefault(); // Prevent the form from submitting the traditional way
+  visitorMessage.style.display = "none"; // Hide the welcome message after resetting the name
+  lastVisitMessage.style.display = "none"; // Hide the last visit message after resetting the name
+  localStorage.removeItem("visitorName"); // Remove the visitor's name from localStorage
+  localStorage.removeItem("lastVisit"); // Remove the last visit time from localStorage
+  document.getElementById('nameInput').value = ""; // Clear the input field after removing the name
+  nameForm.style.display = "block"; // Show the form again after resetting the name
 });
 
 
