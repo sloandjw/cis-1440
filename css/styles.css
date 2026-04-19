@@ -26,9 +26,10 @@ h3 {
     font-size: 40px;
 }
 
-p {
+p, li, th, td {
     color: rgb(255, 255, 255);
-    font-size: 40px;
+    font-size: 30px;
+    font-family: Source Code Pro, monospace;
 }
 
 img {
@@ -48,6 +49,7 @@ table {
 td, th {
     padding: 4px 15px;
     text-align: left;
+    font-size: 16px;
 }
 
 thead th {
@@ -72,6 +74,16 @@ thead th {
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+
+.content-card {
+  max-width: 900px;
+  margin: 60px auto;
+  padding: 32px;
+  background: rgba(0, 0, 0, 0.72);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 12px;
+  box-sizing: border-box;
 }
 
 .box {
@@ -99,7 +111,8 @@ thead th {
     cursor: pointer;
     font-size: 40px;
     font-family: inherit;
-    font-weight: bold;  
+    font-weight: bold;
+    /* margin-bottom: 10px; */
 }
 
 .button:hover {
