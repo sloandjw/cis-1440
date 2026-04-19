@@ -11,20 +11,22 @@ document.body.style.backgroundSize = "cover";
 document.body.style.backgroundPosition = "center";
 
 if (nameForm && nameInput && visitorMessage) {
+  nameForm.addEventListener('submit', (event) => {
+    event.preventDefault(); // Prevent the form from submitting the traditional way
+    const nameInput = document.getElementById('nameInput'); // Get the name input element
+    // rest of the code …
+    localStorage.setItem("visitorName", nameInput.value); // Store the visitor's name in localStorage
+    nameInput.value = ""; // Clear the input field after storing the name
+    nameForm.style.display = "none"; // Hide the form after submission
+    generateVisitorMessage(); // Generate the visitor message after storing the name
+    visitorMessage.style.display = "block"; // Show the welcome message
+    localStorage.setItem("lastVisit", JSON.stringify(getCurrentDateTime())); // Store the current visit time in localStorage
+  })
   if (localStorage.getItem("visitorName") === null) {
     nameForm.style.display = "block"; // Show the form if no visitor name is stored
+    visitorMessage
+    lastVisitMessage.style.display = "none"; // Hide the last visit message
     console.log("visitorName: ", localStorage.getItem("visitorName"));
-    nameForm.addEventListener('submit', (event) => {
-      event.preventDefault(); // Prevent the form from submitting the traditional way
-      const nameInput = document.getElementById('nameInput'); // Get the name input element
-      // rest of the code …
-      localStorage.setItem("visitorName", nameInput.value); // Store the visitor's name in localStorage
-      nameInput.value = ""; // Clear the input field after storing the name
-      nameForm.style.display = "none"; // Hide the form after submission
-      generateVisitorMessage(); // Generate the visitor message after storing the name
-      visitorMessage.style.display = "block"; // Show the welcome message
-      localStorage.setItem("lastVisit", JSON.stringify(getCurrentDateTime())); // Store the current visit time in localStorage
-    })
   } else {
     generateVisitorMessage(); // Generate the visitor message if a visitor name is stored
     visitorMessage.style.display = "block"; // Show the welcome message
